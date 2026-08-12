@@ -1,0 +1,627 @@
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  #sfb-root{
+    --bg-deep:#070C1C;
+    --bg-panel:#0F1B36;
+    --bg-panel-2:#182B54;
+    --bg-card:#12203D;
+    --border-soft:rgba(138,160,199,0.16);
+    --border-mid:rgba(138,160,199,0.28);
+    --accent-gold:#E8B54A;
+    --accent-gold-dim:rgba(232,181,74,0.14);
+    --accent-donkey:#FF6B6B;
+    --accent-donkey-dim:rgba(255,107,107,0.14);
+    --accent-green:#4ADE80;
+    --text-primary:#EAF0FF;
+    --text-muted:#8AA0C7;
+    --text-faint:#54699A;
+    --radius:10px;
+    font-family:'Inter',sans-serif;
+    background:var(--bg-deep);
+    color:var(--text-primary);
+    min-height:100vh;
+    line-height:1.5;
+  }
+  #sfb-root *{box-sizing:border-box;}
+  #sfb-root .display{font-family:'Bebas Neue',sans-serif;letter-spacing:0.03em;}
+  #sfb-root .mono{font-family:'JetBrains Mono',monospace;}
+  #sfb-root ::placeholder{color:var(--text-faint);}
+  #sfb-root .wrap{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
+
+  /* ===== HEADER ===== */
+  #sfb-root .hero{
+    background:
+      radial-gradient(ellipse 900px 400px at 20% -10%, rgba(232,181,74,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 300px at 90% 0%, rgba(255,107,107,0.08), transparent 60%),
+      linear-gradient(180deg, #0A1330 0%, var(--bg-deep) 100%);
+    border-bottom:1px solid var(--border-soft);
+    padding:36px 20px 0;
+  }
+  #sfb-root .hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  #sfb-root .crest{
+    width:64px;height:72px;flex:none;
+    background:linear-gradient(155deg, var(--bg-panel-2), var(--bg-panel));
+    border:1.5px solid var(--accent-gold);
+    clip-path:polygon(50% 0%, 100% 18%, 100% 68%, 50% 100%, 0% 68%, 0% 18%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  #sfb-root .crest span{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent-gold);letter-spacing:0.05em;}
+  #sfb-root .hero-title h1{
+    font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:0.95;margin:0;letter-spacing:0.02em;
+  }
+  #sfb-root .hero-title p{margin:6px 0 0;color:var(--text-muted);font-size:14px;}
+  #sfb-root .hero-stats{display:flex;gap:10px;margin:26px 0 0;flex-wrap:wrap;}
+  #sfb-root .stat-box{
+    background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:var(--radius);
+    padding:12px 16px;min-width:130px;flex:1;
+  }
+  #sfb-root .stat-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-faint);margin:0 0 6px;}
+  #sfb-root .stat-value{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:19px;
+    text-shadow:0 0 14px currentColor;}
+  #sfb-root .stat-value.gold{color:var(--accent-gold);}
+  #sfb-root .stat-value.donkey{color:var(--accent-donkey);}
+  #sfb-root .stat-value.plain{color:var(--text-primary);text-shadow:none;}
+  #sfb-root .stat-sub{font-size:11px;color:var(--text-muted);margin-top:2px;}
+
+  /* ===== NAV ===== */
+  #sfb-root .nav{
+    display:flex;gap:4px;margin:22px 0 0;padding-bottom:0;overflow-x:auto;
+  }
+  #sfb-root .nav-btn{
+    background:none;border:none;color:var(--text-muted);font-family:'Inter',sans-serif;
+    font-size:13.5px;font-weight:600;padding:12px 16px;cursor:pointer;white-space:nowrap;
+    border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s;
+  }
+  #sfb-root .nav-btn:hover{color:var(--text-primary);}
+  #sfb-root .nav-btn.active{color:var(--accent-gold);border-color:var(--accent-gold);}
+
+  /* ===== SECTIONS / CARDS ===== */
+  #sfb-root .section{padding:28px 0 0;}
+  #sfb-root .section-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+  #sfb-root .section-head h2{font-family:'Bebas Neue',sans-serif;font-size:26px;margin:0;letter-spacing:0.02em;}
+  #sfb-root .section-head p{margin:2px 0 0;color:var(--text-muted);font-size:13px;}
+  #sfb-root .card{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:12px;padding:16px;}
+  #sfb-root .btn{
+    background:var(--bg-panel-2);color:var(--text-primary);border:1px solid var(--border-mid);
+    border-radius:8px;padding:9px 15px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+    cursor:pointer;transition:border-color .15s, background .15s;
+  }
+  #sfb-root .btn:hover{border-color:var(--accent-gold);}
+  #sfb-root .btn-gold{background:var(--accent-gold-dim);border-color:var(--accent-gold);color:var(--accent-gold);}
+  #sfb-root .btn-donkey{background:var(--accent-donkey-dim);border-color:var(--accent-donkey);color:var(--accent-donkey);}
+  #sfb-root .btn-sm{padding:6px 11px;font-size:12px;}
+  #sfb-root input, #sfb-root select, #sfb-root textarea{
+    width:100%;background:var(--bg-deep);border:1px solid var(--border-mid);color:var(--text-primary);
+    border-radius:7px;padding:9px 11px;font-family:'Inter',sans-serif;font-size:13.5px;outline:none;
+  }
+  #sfb-root input:focus, #sfb-root select:focus, #sfb-root textarea:focus{border-color:var(--accent-gold);}
+  #sfb-root label{display:block;font-size:11px;color:var(--text-muted);margin:0 0 5px;text-transform:uppercase;letter-spacing:0.05em;}
+  #sfb-root .field{margin-bottom:12px;}
+  #sfb-root .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;}
+
+  /* ===== SQUAD ===== */
+  #sfb-root .squad-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+  #sfb-root .player-card{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:12px;overflow:hidden;}
+  #sfb-root .player-photo{
+    width:100%;aspect-ratio:4/3;background:var(--bg-panel-2);display:flex;align-items:center;justify-content:center;
+    background-size:cover;background-position:center;border-bottom:1px solid var(--border-soft);
+  }
+  #sfb-root .player-photo .initials{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--text-faint);}
+  #sfb-root .player-body{padding:12px 14px 14px;}
+  #sfb-root .player-name{font-weight:700;font-size:14.5px;margin:0 0 4px;}
+  #sfb-root .player-ach{font-size:12.5px;color:var(--text-muted);min-height:18px;white-space:pre-wrap;}
+  #sfb-root .player-ach.empty{font-style:italic;color:var(--text-faint);}
+  #sfb-root .player-edit-form{padding:12px 14px 14px;border-top:1px dashed var(--border-mid);display:none;}
+  #sfb-root .player-edit-form.open{display:block;}
+  #sfb-root .edit-row{display:flex;gap:8px;margin-top:8px;}
+
+  /* ===== MEMES ===== */
+  #sfb-root .meme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+  #sfb-root .meme-card{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:12px;overflow:hidden;}
+  #sfb-root .meme-img{width:100%;aspect-ratio:1/1;background:var(--bg-panel-2);background-size:cover;background-position:center;}
+  #sfb-root .meme-body{padding:10px 12px;}
+  #sfb-root .meme-caption{font-size:13px;margin:0 0 4px;font-weight:600;}
+  #sfb-root .meme-meta{font-size:11px;color:var(--text-faint);}
+
+  /* ===== ZIP TRACKER ===== */
+  #sfb-root .sub-nav{display:flex;gap:8px;margin-bottom:18px;}
+  #sfb-root .sub-nav button{
+    background:var(--bg-panel);border:1px solid var(--border-soft);color:var(--text-muted);
+    border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;
+  }
+  #sfb-root .sub-nav button.active{border-color:var(--accent-gold);color:var(--accent-gold);background:var(--accent-gold-dim);}
+  #sfb-root table{width:100%;border-collapse:collapse;font-size:13px;}
+  #sfb-root th{text-align:left;color:var(--text-faint);font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;
+    padding:8px 10px;border-bottom:1px solid var(--border-mid);}
+  #sfb-root td{padding:9px 10px;border-bottom:1px solid var(--border-soft);}
+  #sfb-root tr.leader td{background:var(--accent-donkey-dim);}
+  #sfb-root tr.leader td:first-child{border-left:2px solid var(--accent-donkey);}
+  #sfb-root tr.top td{background:var(--accent-gold-dim);}
+  #sfb-root tr.top td:first-child{border-left:2px solid var(--accent-gold);}
+  #sfb-root .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;}
+  #sfb-root .pill-donkey{background:var(--accent-donkey-dim);color:var(--accent-donkey);}
+  #sfb-root .pill-gold{background:var(--accent-gold-dim);color:var(--accent-gold);}
+  #sfb-root .subhead{font-size:15px;font-weight:700;margin:22px 0 10px;}
+  #sfb-root .table-wrap{overflow-x:auto;background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:12px;padding:6px 10px;}
+  #sfb-root .empty-note{color:var(--text-faint);font-size:13px;font-style:italic;padding:14px 4px;}
+
+  /* ===== WINNERS ===== */
+  #sfb-root .winner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+  #sfb-root .winner-card{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:12px;overflow:hidden;text-align:center;}
+  #sfb-root .winner-img{width:100%;aspect-ratio:1/1;background:var(--bg-panel-2);background-size:cover;background-position:center;
+    display:flex;align-items:center;justify-content:center;}
+  #sfb-root .winner-body{padding:10px 12px 12px;}
+  #sfb-root .winner-name{font-weight:700;font-size:13.5px;margin:6px 0 2px;}
+  #sfb-root .winner-date{font-size:11px;color:var(--text-faint);}
+  #sfb-root .winner-note{font-size:12px;color:var(--text-muted);margin-top:4px;}
+
+  #sfb-root .toggle-row{display:flex;justify-content:flex-end;margin-bottom:12px;}
+  #sfb-root .helper{font-size:11.5px;color:var(--text-faint);margin-top:4px;}
+  #sfb-root .loading{color:var(--text-faint);font-size:13px;padding:30px 0;text-align:center;}
+
+  @media (max-width:560px){
+    #sfb-root .hero-title h1{font-size:34px;}
+  }
+</style>
+
+<div id="sfb-root">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="crest"><span>SFB</span></div>
+      <div class="hero-title">
+        <h1>SUPERFEETBOLLZ</h1>
+        <p>12 legends &middot; one Zip game &middot; endless shame</p>
+      </div>
+    </div>
+    <div class="wrap" style="padding-top:0;">
+      <div class="hero-stats" id="sfb-hero-stats"></div>
+      <div class="nav" id="sfb-nav">
+        <button class="nav-btn" data-tab="home">Home</button>
+        <button class="nav-btn" data-tab="squad">Squad</button>
+        <button class="nav-btn" data-tab="memes">Hall of Meme</button>
+        <button class="nav-btn" data-tab="zip">Zip Tracker</button>
+        <button class="nav-btn" data-tab="winners">Winners' Wall</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div id="sfb-content"><div class="loading">Loading the clubhouse...</div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var MEMBER_NAMES = ["Ritvik Thakur","Aditya Vyas","Karthik Sridhar","Ninad Berry","Ameya Lokhande",
+    "Siddharth Shirore","Siddharth Gulechha","Anamay Deshpande","Prateek Rupani","Ashutosh Desai",
+    "Aseem Kannal","Kshitij Javeri"];
+
+  function slug(name){ return name.toLowerCase().replace(/[^a-z]+/g,'-').replace(/(^-|-$)/g,''); }
+
+  var state = { members: [], memes: [], league: [], fixtures: [], winners: [], activeTab: 'home', zipSubTab: 'league' };
+  var editingPlayer = null;
+
+  function defaultMembers(){
+    return MEMBER_NAMES.map(function(n){ return { id: slug(n), name: n, photoUrl: '', achievements: '' }; });
+  }
+
+  async function loadAll(){
+    try{
+      var m = await safeGet('sf_members'); state.members = m || defaultMembers();
+      var mk = await safeGet('sf_memes'); state.memes = mk || [];
+      var lg = await safeGet('sf_league_entries'); state.league = lg || [];
+      var fx = await safeGet('sf_cup_fixtures'); state.fixtures = fx || [];
+      var wn = await safeGet('sf_winners'); state.winners = wn || [];
+    }catch(e){
+      console.error('load error', e);
+    }
+    render();
+  }
+
+  async function safeGet(key){
+    try{
+      var res = await window.storage.get(key, true);
+      if(!res || !res.value) return null;
+      return JSON.parse(res.value);
+    }catch(e){ return null; }
+  }
+  async function safeSet(key, value){
+    try{ await window.storage.set(key, JSON.stringify(value), true); }
+    catch(e){ console.error('save failed', key, e); }
+  }
+
+  function saveMembers(){ safeSet('sf_members', state.members); }
+  function saveMemes(){ safeSet('sf_memes', state.memes); }
+  function saveLeague(){ safeSet('sf_league_entries', state.league); }
+  function saveFixtures(){ safeSet('sf_cup_fixtures', state.fixtures); }
+  function saveWinners(){ safeSet('sf_winners', state.winners); }
+
+  function uid(){ return Math.random().toString(36).slice(2,10); }
+  function todayStr(){ return new Date().toISOString().slice(0,10); }
+  function initials(name){ return name.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase(); }
+  function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function formatTime(sec){
+    sec = Math.round(sec);
+    var m = Math.floor(sec/60), s = sec%60;
+    return m + ':' + (s<10?'0':'') + s;
+  }
+  function parseTimeInput(str){
+    str = (str||'').trim();
+    if(!str) return null;
+    if(str.indexOf(':') > -1){
+      var parts = str.split(':');
+      var m = parseInt(parts[0],10)||0, s = parseInt(parts[1],10)||0;
+      return m*60+s;
+    }
+    var n = parseFloat(str);
+    return isNaN(n) ? null : n;
+  }
+  function getWeekRange(dateStr){
+    var d = new Date(dateStr+'T00:00:00');
+    var day = d.getDay();
+    var diffToMon = (day===0? -6 : 1-day);
+    var mon = new Date(d); mon.setDate(d.getDate()+diffToMon);
+    var sun = new Date(mon); sun.setDate(mon.getDate()+6);
+    return { start: mon.toISOString().slice(0,10), end: sun.toISOString().slice(0,10) };
+  }
+  function memberName(id){
+    var m = state.members.find(function(x){return x.id===id;});
+    return m ? m.name : id;
+  }
+
+  /* ===== COMPUTATIONS ===== */
+  function computeDailyLeaderboard(date){
+    var entries = state.league.filter(function(e){return e.date===date;});
+    entries.sort(function(a,b){return a.timeSeconds-b.timeSeconds;});
+    return entries;
+  }
+  function computeWeeklyCumulative(refDate){
+    var range = getWeekRange(refDate);
+    var totals = {};
+    state.league.forEach(function(e){
+      if(e.date >= range.start && e.date <= range.end){
+        totals[e.memberId] = (totals[e.memberId]||0) + e.timeSeconds;
+      }
+    });
+    var rows = Object.keys(totals).map(function(id){ return { memberId:id, total: totals[id] }; });
+    rows.sort(function(a,b){ return b.total-a.total; });
+    return { range: range, rows: rows };
+  }
+  function computeCupStandings(){
+    var table = {};
+    state.members.forEach(function(m){ table[m.id] = { id:m.id, name:m.name, p:0,w:0,d:0,l:0,gf:0,ga:0,pts:0 }; });
+    state.fixtures.filter(function(f){return f.played;}).forEach(function(f){
+      var a = table[f.playerA], b = table[f.playerB];
+      if(!a || !b) return;
+      a.p++; b.p++;
+      a.gf += f.scoreA; a.ga += f.scoreB;
+      b.gf += f.scoreB; b.ga += f.scoreA;
+      if(f.scoreA > f.scoreB){ a.w++; a.pts+=3; b.l++; }
+      else if(f.scoreA < f.scoreB){ b.w++; b.pts+=3; a.l++; }
+      else { a.d++; b.d++; a.pts++; b.pts++; }
+    });
+    var rows = Object.values(table);
+    rows.sort(function(a,b){ return b.pts-a.pts || (b.gf-b.ga)-(a.gf-a.ga) || b.gf-a.gf; });
+    return rows;
+  }
+
+  /* ===== RENDER: HERO STATS ===== */
+  function renderHeroStats(){
+    var today = todayStr();
+    var daily = computeDailyLeaderboard(today);
+    var weekly = computeWeeklyCumulative(today);
+    var cup = computeCupStandings().filter(function(r){return r.p>0;});
+    var el = document.getElementById('sfb-hero-stats');
+    var dotd = daily.length ? memberName(daily[daily.length-1].memberId) : '\u2014';
+    var dor = weekly.rows.length ? memberName(weekly.rows[0].memberId) : '\u2014';
+    var cupLeader = cup.length ? cup[0].name : '\u2014';
+    el.innerHTML =
+      '<div class="stat-box"><p class="stat-label">Donkey of the day</p><p class="stat-value donkey">'+escapeHtml(dotd)+'</p><p class="stat-sub">'+today+'</p></div>'+
+      '<div class="stat-box"><p class="stat-label">Donkey d\'Or leader</p><p class="stat-value donkey">'+escapeHtml(dor)+'</p><p class="stat-sub">this week</p></div>'+
+      '<div class="stat-box"><p class="stat-label">Cup leader</p><p class="stat-value gold">'+escapeHtml(cupLeader)+'</p><p class="stat-sub">'+cup.length+' played fixtures</p></div>'+
+      '<div class="stat-box"><p class="stat-label">Hall of meme</p><p class="stat-value plain">'+state.memes.length+'</p><p class="stat-sub">memes archived</p></div>';
+  }
+
+  /* ===== RENDER: NAV ===== */
+  function renderNav(){
+    document.querySelectorAll('#sfb-nav .nav-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.tab === state.activeTab);
+    });
+  }
+
+  /* ===== RENDER: HOME ===== */
+  function renderHome(){
+    var recentMemes = state.memes.slice(-3).reverse();
+    var recentWinners = state.winners.slice(-3).reverse();
+    var html = '<div class="section">'+
+      '<div class="section-head"><h2>Latest from the group</h2></div>'+
+      '<div class="form-grid">'+
+        '<div class="card"><p class="stat-label" style="margin-bottom:10px;">Newest memes</p>'+
+          (recentMemes.length ? recentMemes.map(function(m){
+            return '<p style="font-size:13px;margin:0 0 8px;color:var(--text-muted);">"'+escapeHtml(m.caption||'Untitled')+'" &mdash; '+escapeHtml(m.addedBy||'unknown')+'</p>';
+          }).join('') : '<p class="empty-note">No memes yet. Add the first one in Hall of Meme.</p>')+
+        '</div>'+
+        '<div class="card"><p class="stat-label" style="margin-bottom:10px;">Recent winners</p>'+
+          (recentWinners.length ? recentWinners.map(function(w){
+            return '<p style="font-size:13px;margin:0 0 8px;color:var(--text-muted);">'+escapeHtml(w.memberName)+' &mdash; '+(w.category==='dotd'?'Donkey of the Day':'Donkey d\'Or')+' ('+w.date+')</p>';
+          }).join('') : '<p class="empty-note">No winners posted yet.</p>')+
+        '</div>'+
+      '</div>'+
+    '</div>';
+    document.getElementById('sfb-content').innerHTML = html;
+  }
+
+  /* ===== RENDER: SQUAD ===== */
+  function renderSquad(){
+    var html = '<div class="section"><div class="section-head"><h2>The squad</h2><p>12 dedicated members. Tap edit to add a photo link and achievements.</p></div>';
+    html += '<div class="squad-grid">';
+    state.members.forEach(function(m){
+      var photoStyle = m.photoUrl ? ' style="background-image:url(\''+escapeHtml(m.photoUrl)+'\')"' : '';
+      html += '<div class="player-card">'+
+        '<div class="player-photo"'+photoStyle+'>'+(m.photoUrl?'':'<span class="initials">'+initials(m.name)+'</span>')+'</div>'+
+        '<div class="player-body">'+
+          '<p class="player-name">'+escapeHtml(m.name)+'</p>'+
+          '<p class="player-ach'+(m.achievements?'':' empty')+'">'+(m.achievements?escapeHtml(m.achievements):'No achievements added yet.')+'</p>'+
+          '<div style="margin-top:10px;"><button class="btn btn-sm" onclick="sfbToggleEdit(\''+m.id+'\')">Edit</button></div>'+
+        '</div>'+
+        '<div class="player-edit-form'+(editingPlayer===m.id?' open':'')+'" id="edit-'+m.id+'">'+
+          '<div class="field"><label>Photo URL</label><input type="text" id="photo-'+m.id+'" placeholder="https://..." value="'+escapeHtml(m.photoUrl)+'"></div>'+
+          '<div class="field"><label>Achievements</label><textarea id="ach-'+m.id+'" rows="3" placeholder="Top scorer 2025, dodgy referee decisions survivor...">'+escapeHtml(m.achievements)+'</textarea></div>'+
+          '<div class="edit-row"><button class="btn btn-gold btn-sm" onclick="sfbSavePlayer(\''+m.id+'\')">Save</button><button class="btn btn-sm" onclick="sfbToggleEdit(\''+m.id+'\')">Cancel</button></div>'+
+        '</div>'+
+      '</div>';
+    });
+    html += '</div></div>';
+    document.getElementById('sfb-content').innerHTML = html;
+  }
+
+  window.sfbToggleEdit = function(id){
+    editingPlayer = (editingPlayer===id) ? null : id;
+    renderSquad();
+  };
+  window.sfbSavePlayer = function(id){
+    var photo = document.getElementById('photo-'+id).value.trim();
+    var ach = document.getElementById('ach-'+id).value.trim();
+    var m = state.members.find(function(x){return x.id===id;});
+    if(m){ m.photoUrl = photo; m.achievements = ach; }
+    editingPlayer = null;
+    saveMembers();
+    renderSquad();
+  };
+
+  /* ===== RENDER: MEMES ===== */
+  function renderMemes(){
+    var options = state.members.map(function(m){return '<option value="'+escapeHtml(m.name)+'">'+escapeHtml(m.name)+'</option>';}).join('');
+    var html = '<div class="section"><div class="section-head"><h2>Hall of meme</h2><p>Paste an image link (imgur, postimages, whatsapp media link, etc.) for each screenshot.</p></div>';
+    html += '<div class="card" style="margin-bottom:18px;">'+
+      '<div class="form-grid">'+
+        '<div class="field" style="grid-column:1/-1;"><label>Image URL</label><input type="text" id="meme-url" placeholder="https://..."></div>'+
+        '<div class="field"><label>Caption</label><input type="text" id="meme-caption" placeholder="Legendary rage quit"></div>'+
+        '<div class="field"><label>Added by</label><select id="meme-by">'+options+'</select></div>'+
+      '</div>'+
+      '<button class="btn btn-gold" onclick="sfbAddMeme()">Add meme</button>'+
+    '</div>';
+    html += '<div class="meme-grid">';
+    if(state.memes.length===0){
+      html += '<p class="empty-note">No memes archived yet. Be the first to immortalize the chat.</p>';
+    } else {
+      state.memes.slice().reverse().forEach(function(m){
+        html += '<div class="meme-card">'+
+          '<div class="meme-img" style="background-image:url(\''+escapeHtml(m.imageUrl)+'\')"></div>'+
+          '<div class="meme-body">'+
+            '<p class="meme-caption">'+escapeHtml(m.caption||'Untitled')+'</p>'+
+            '<p class="meme-meta">'+escapeHtml(m.addedBy)+' &middot; '+m.date+'</p>'+
+          '</div>'+
+        '</div>';
+      });
+    }
+    html += '</div></div>';
+    document.getElementById('sfb-content').innerHTML = html;
+  }
+  window.sfbAddMeme = function(){
+    var url = document.getElementById('meme-url').value.trim();
+    var caption = document.getElementById('meme-caption').value.trim();
+    var by = document.getElementById('meme-by').value;
+    if(!url) return;
+    state.memes.push({ id: uid(), imageUrl: url, caption: caption, addedBy: by, date: todayStr() });
+    saveMemes();
+    renderMemes();
+    renderHeroStats();
+  };
+
+  /* ===== RENDER: ZIP TRACKER ===== */
+  function renderZip(){
+    var html = '<div class="section"><div class="section-head"><h2>Zip tracker</h2><p>Two competitions, one shared shame.</p></div>';
+    html += '<div class="sub-nav">'+
+      '<button class="'+(state.zipSubTab==='league'?'active':'')+'" onclick="sfbZipTab(\'league\')">Donkey League</button>'+
+      '<button class="'+(state.zipSubTab==='cup'?'active':'')+'" onclick="sfbZipTab(\'cup\')">Donkey Cup</button>'+
+    '</div>';
+    html += '<div id="sfb-zip-body"></div></div>';
+    document.getElementById('sfb-content').innerHTML = html;
+    if(state.zipSubTab==='league') renderDonkeyLeague(); else renderDonkeyCup();
+  }
+  window.sfbZipTab = function(t){ state.zipSubTab = t; renderZip(); };
+
+  function renderDonkeyLeague(){
+    var options = state.members.map(function(m){return '<option value="'+m.id+'">'+escapeHtml(m.name)+'</option>';}).join('');
+    var today = todayStr();
+    var daily = computeDailyLeaderboard(today);
+    var weekly = computeWeeklyCumulative(today);
+    var html = '<div class="card" style="margin-bottom:18px;">'+
+      '<div class="form-grid">'+
+        '<div class="field"><label>Date</label><input type="date" id="lg-date" value="'+today+'"></div>'+
+        '<div class="field"><label>Member</label><select id="lg-member">'+options+'</select></div>'+
+        '<div class="field"><label>Time (mm:ss)</label><input type="text" id="lg-time" placeholder="2:14"></div>'+
+      '</div>'+
+      '<button class="btn btn-gold" onclick="sfbAddLeagueEntry()">Log time</button>'+
+    '</div>';
+
+    html += '<p class="subhead">Today\'s leaderboard &middot; '+today+' <span class="pill pill-donkey" style="margin-left:6px;">slowest = Donkey of the Day</span></p>';
+    html += '<div class="table-wrap">';
+    if(daily.length===0){
+      html += '<p class="empty-note">No times logged for today yet.</p>';
+    } else {
+      html += '<table><thead><tr><th>#</th><th>Player</th><th>Time</th></tr></thead><tbody>';
+      daily.forEach(function(e,i){
+        var isLast = i===daily.length-1;
+        html += '<tr class="'+(isLast?'leader':(i===0?'top':''))+'"><td>'+(i+1)+'</td><td>'+escapeHtml(memberName(e.memberId))+
+          (isLast?' <span class="pill pill-donkey">Donkey</span>':'')+
+          (i===0?' <span class="pill pill-gold">Fastest</span>':'')+
+          '</td><td class="mono">'+formatTime(e.timeSeconds)+'</td></tr>';
+      });
+      html += '</tbody></table>';
+    }
+    html += '</div>';
+
+    html += '<p class="subhead">Weekly cumulative &middot; '+weekly.range.start+' to '+weekly.range.end+' <span class="pill pill-donkey" style="margin-left:6px;">highest total = Donkey d\'Or</span></p>';
+    html += '<div class="table-wrap">';
+    if(weekly.rows.length===0){
+      html += '<p class="empty-note">No entries logged for this week yet.</p>';
+    } else {
+      html += '<table><thead><tr><th>#</th><th>Player</th><th>Total time</th></tr></thead><tbody>';
+      weekly.rows.forEach(function(r,i){
+        html += '<tr class="'+(i===0?'leader':'')+'"><td>'+(i+1)+'</td><td>'+escapeHtml(memberName(r.memberId))+
+          (i===0?' <span class="pill pill-donkey">Donkey d\'Or</span>':'')+
+          '</td><td class="mono">'+formatTime(r.total)+'</td></tr>';
+      });
+      html += '</tbody></table>';
+    }
+    html += '</div>';
+    document.getElementById('sfb-zip-body').innerHTML = html;
+  }
+  window.sfbAddLeagueEntry = function(){
+    var date = document.getElementById('lg-date').value || todayStr();
+    var memberId = document.getElementById('lg-member').value;
+    var t = parseTimeInput(document.getElementById('lg-time').value);
+    if(t===null) return;
+    state.league.push({ id: uid(), date: date, memberId: memberId, timeSeconds: t });
+    saveLeague();
+    renderDonkeyLeague();
+    renderHeroStats();
+  };
+
+  function renderDonkeyCup(){
+    var options = state.members.map(function(m){return '<option value="'+m.id+'">'+escapeHtml(m.name)+'</option>';}).join('');
+    var standings = computeCupStandings();
+    var html = '<div class="card" style="margin-bottom:18px;">'+
+      '<div class="form-grid">'+
+        '<div class="field"><label>Date</label><input type="date" id="fx-date" value="'+todayStr()+'"></div>'+
+        '<div class="field"><label>Player A</label><select id="fx-a">'+options+'</select></div>'+
+        '<div class="field"><label>Player B</label><select id="fx-b">'+options+'</select></div>'+
+      '</div>'+
+      '<div class="form-grid">'+
+        '<div class="field"><label>Score A</label><input type="number" id="fx-sa" min="0" value="0"></div>'+
+        '<div class="field"><label>Score B</label><input type="number" id="fx-sb" min="0" value="0"></div>'+
+        '<div class="field"><label>Status</label><select id="fx-played"><option value="1">Played</option><option value="0">Scheduled</option></select></div>'+
+      '</div>'+
+      '<button class="btn btn-gold" onclick="sfbAddFixture()">Save fixture</button>'+
+    '</div>';
+
+    html += '<p class="subhead">Points table</p><div class="table-wrap">';
+    html += '<table><thead><tr><th>#</th><th>Player</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead><tbody>';
+    standings.forEach(function(r,i){
+      html += '<tr class="'+(i===0 && r.p>0?'top':'')+'"><td>'+(i+1)+'</td><td>'+escapeHtml(r.name)+'</td><td class="mono">'+r.p+'</td><td class="mono">'+r.w+'</td><td class="mono">'+r.d+'</td><td class="mono">'+r.l+'</td><td class="mono">'+(r.gf-r.ga)+'</td><td class="mono">'+r.pts+'</td></tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<p class="subhead">Fixtures</p><div class="table-wrap">';
+    if(state.fixtures.length===0){
+      html += '<p class="empty-note">No fixtures added yet.</p>';
+    } else {
+      html += '<table><thead><tr><th>Date</th><th>Match</th><th>Score</th><th>Status</th></tr></thead><tbody>';
+      state.fixtures.slice().reverse().forEach(function(f){
+        html += '<tr><td class="mono">'+f.date+'</td><td>'+escapeHtml(memberName(f.playerA))+' vs '+escapeHtml(memberName(f.playerB))+'</td><td class="mono">'+f.scoreA+' - '+f.scoreB+'</td><td>'+(f.played?'<span class="pill pill-gold">Played</span>':'<span class="pill pill-donkey">Scheduled</span>')+'</td></tr>';
+      });
+      html += '</tbody></table>';
+    }
+    html += '</div>';
+    document.getElementById('sfb-zip-body').innerHTML = html;
+  }
+  window.sfbAddFixture = function(){
+    var a = document.getElementById('fx-a').value;
+    var b = document.getElementById('fx-b').value;
+    if(a===b) return;
+    var f = {
+      id: uid(),
+      date: document.getElementById('fx-date').value || todayStr(),
+      playerA: a, playerB: b,
+      scoreA: parseInt(document.getElementById('fx-sa').value,10)||0,
+      scoreB: parseInt(document.getElementById('fx-sb').value,10)||0,
+      played: document.getElementById('fx-played').value === '1'
+    };
+    state.fixtures.push(f);
+    saveFixtures();
+    renderDonkeyCup();
+    renderHeroStats();
+  };
+
+  /* ===== RENDER: WINNERS ===== */
+  function renderWinners(){
+    var options = state.members.map(function(m){return '<option value="'+escapeHtml(m.name)+'">'+escapeHtml(m.name)+'</option>';}).join('');
+    var html = '<div class="section"><div class="section-head"><h2>Winners\' wall</h2><p>Every Donkey of the Day and Donkey d\'Or, immortalized.</p></div>';
+    html += '<div class="card" style="margin-bottom:18px;">'+
+      '<div class="form-grid">'+
+        '<div class="field"><label>Category</label><select id="win-cat"><option value="dotd">Donkey of the Day</option><option value="dor">Donkey d\'Or</option></select></div>'+
+        '<div class="field"><label>Member</label><select id="win-member">'+options+'</select></div>'+
+        '<div class="field"><label>Date</label><input type="date" id="win-date" value="'+todayStr()+'"></div>'+
+      '</div>'+
+      '<div class="form-grid">'+
+        '<div class="field" style="grid-column:1/-1;"><label>Image URL</label><input type="text" id="win-img" placeholder="https://..."></div>'+
+        '<div class="field" style="grid-column:1/-1;"><label>Note (optional)</label><input type="text" id="win-note" placeholder="Missed a 3-letter word for 4 minutes"></div>'+
+      '</div>'+
+      '<button class="btn btn-donkey" onclick="sfbAddWinner()">Add to wall</button>'+
+    '</div>';
+    html += '<div class="winner-grid">';
+    if(state.winners.length===0){
+      html += '<p class="empty-note">No winners posted yet.</p>';
+    } else {
+      state.winners.slice().reverse().forEach(function(w){
+        html += '<div class="winner-card">'+
+          '<div class="winner-img"'+(w.imageUrl?' style="background-image:url(\''+escapeHtml(w.imageUrl)+'\')"':'')+'>'+
+          (w.imageUrl?'':'<span class="initials" style="font-family:\'Bebas Neue\',sans-serif;font-size:30px;color:var(--text-faint);">'+initials(w.memberName)+'</span>')+'</div>'+
+          '<div class="winner-body">'+
+            '<span class="pill '+(w.category==='dotd'?'pill-donkey':'pill-gold')+'">'+(w.category==='dotd'?'Donkey of the Day':'Donkey d\'Or')+'</span>'+
+            '<p class="winner-name">'+escapeHtml(w.memberName)+'</p>'+
+            '<p class="winner-date">'+w.date+'</p>'+
+            (w.note?'<p class="winner-note">'+escapeHtml(w.note)+'</p>':'')+
+          '</div>'+
+        '</div>';
+      });
+    }
+    html += '</div></div>';
+    document.getElementById('sfb-content').innerHTML = html;
+  }
+  window.sfbAddWinner = function(){
+    var cat = document.getElementById('win-cat').value;
+    var member = document.getElementById('win-member').value;
+    var date = document.getElementById('win-date').value || todayStr();
+    var img = document.getElementById('win-img').value.trim();
+    var note = document.getElementById('win-note').value.trim();
+    state.winners.push({ id: uid(), category: cat, memberName: member, date: date, imageUrl: img, note: note });
+    saveWinners();
+    renderWinners();
+  };
+
+  /* ===== MAIN RENDER ===== */
+  function render(){
+    renderHeroStats();
+    renderNav();
+    if(state.activeTab==='home') renderHome();
+    else if(state.activeTab==='squad') renderSquad();
+    else if(state.activeTab==='memes') renderMemes();
+    else if(state.activeTab==='zip') renderZip();
+    else if(state.activeTab==='winners') renderWinners();
+  }
+
+  document.getElementById('sfb-nav').addEventListener('click', function(e){
+    var btn = e.target.closest('.nav-btn');
+    if(!btn) return;
+    state.activeTab = btn.dataset.tab;
+    editingPlayer = null;
+    render();
+  });
+
+  loadAll();
+})();
+</script>
